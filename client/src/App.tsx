@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import ClassificationService from "./services/ClassificationService";
 
@@ -10,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src="test-images/German-Shepherd.jpg" alt="" />
+        <img src="test-images/Pug.jpg" alt="" />
       </header>
     </div>
   );
