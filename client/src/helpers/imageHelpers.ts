@@ -1,12 +1,11 @@
 import { Rank, scalar, Tensor } from "@tensorflow/tfjs";
 
+// Image helpers taken from https://thekevinscott.com/image-classification-with-javascript/#data-pipelines
 export const cropImage = (img: Tensor<Rank>) => {
   const width = img.shape[0];
   const height = img.shape[1];
 
   if (!width || !height) return img;
-
-  console.log("cropping?");
 
   // use the shorter side as the size to which we will crop
   const shorterSide = Math.min(width, height);
