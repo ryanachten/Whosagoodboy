@@ -1,12 +1,11 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import ClassificationImage from "./components/ClassificationImage";
+import { useCallback, useContext, useEffect, useState } from "react";
+import FileUpload from "./components/FileUpload";
+import ImageGrid from "./components/ImageGrid";
 import { ClassificationContext } from "./services/ClassificationService";
-import PhotoService from "./services/PhotoService";
 
 function App() {
   const classificationContext = useContext(ClassificationContext);
-
-  const [photos, setPhotos] = useState<Array<string>>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     init();
@@ -14,18 +13,18 @@ function App() {
 
   const init = useCallback(async () => {
     await classificationContext.init();
-
-    const photoService = new PhotoService();
-    const res = await photoService.getRandomPhotos(10);
-    setPhotos(res);
+    setLoading(false);
   }, []);
 
+  if (loading) {
+    return <p>Loading</p>;
+  }
+
   return (
-    <div>
-      {photos.map((src, i) => {
-        return <ClassificationImage key={i} imageUri={src} />;
-      })}
-    </div>
+    <>
+      <FileUpload />
+      <ImageGrid />
+    </>
   );
 }
 

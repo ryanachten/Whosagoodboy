@@ -1,5 +1,5 @@
 class PhotoService {
-  async getRandomPhotos(count: number): Promise<string[]> {
+  getPhotos(): string[] {
     const baseUri = "test-images";
     const numberOfDogImages = 6;
     const uris = [];

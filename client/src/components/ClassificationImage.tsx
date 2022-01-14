@@ -1,10 +1,17 @@
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import styled from "styled-components";
 import { formatDisplayLabel } from "../helpers/labelHelpers";
 import { ClassificationContext } from "../services/ClassificationService";
 
 export interface IClassificationImageProps {
   imageUri: string;
 }
+
+const ResponsiveImage = styled.img`
+  height: 50%;
+  object-fit: cover;
+  width: 100%;
+`;
 
 const ClassificationImage = ({ imageUri }: IClassificationImageProps) => {
   const classificationContext = useContext(ClassificationContext);
@@ -30,11 +37,14 @@ const ClassificationImage = ({ imageUri }: IClassificationImageProps) => {
 
   return (
     <div>
-      <img ref={imageRef} src={imageUri} alt="" />
-      {classificationResults &&
-        classificationResults.map((label, j) => (
-          <p key={label}>{formatDisplayLabel(label)}</p>
-        ))}
+      <ResponsiveImage ref={imageRef} src={imageUri} alt="" />
+      {classificationResults && (
+        <ol>
+          {classificationResults.map((label, j) => (
+            <li key={label}>{formatDisplayLabel(label)}</li>
+          ))}
+        </ol>
+      )}
     </div>
   );
 };
