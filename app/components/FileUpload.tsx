@@ -1,13 +1,7 @@
 import { ChangeEvent, useCallback, useState } from "react";
-import styled from "styled-components";
 import ClassificationImage from "./ClassificationImage";
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  max-width: 500px;
-`;
+import styles from "../styles/FileUpload.module.css";
 
 const FileUpload = () => {
   const [image, setImage] = useState("");
@@ -23,7 +17,7 @@ const FileUpload = () => {
   );
 
   return (
-    <Wrapper>
+    <div className={styles.wrapper}>
       <label htmlFor="file-upload">Choose dog image to classify</label>
       <input
         id="file-upload"
@@ -32,7 +26,7 @@ const FileUpload = () => {
         onChange={onFileChange}
       />
       {image && <ClassificationImage imageUri={image} />}
-    </Wrapper>
+    </div>
   );
 };
 

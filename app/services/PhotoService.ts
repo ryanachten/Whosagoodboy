@@ -1,6 +1,6 @@
 class PhotoService {
   getPhotos(): string[] {
-    const baseUri = "test-images";
+    const baseUri = "/test-images";
     const numberOfDogImages = 6;
     const uris = [];
     for (let index = 1; index <= numberOfDogImages; index++) {

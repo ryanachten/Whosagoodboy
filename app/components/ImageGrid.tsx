@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import PhotoService from "../services/PhotoService";
 import ClassificationImage from "./ClassificationImage";
 
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-`;
+import styles from "../styles/ImageGrid.module.css";
 
 const ImageGrid = () => {
   const [photos, setPhotos] = useState<Array<string>>([]);
@@ -17,11 +13,11 @@ const ImageGrid = () => {
   }, []);
 
   return (
-    <Grid>
+    <div className={styles.grid}>
       {photos.map((src, i) => {
         return <ClassificationImage key={i} imageUri={src} />;
       })}
-    </Grid>
+    </div>
   );
 };
 
