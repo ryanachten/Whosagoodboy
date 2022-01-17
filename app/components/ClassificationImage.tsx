@@ -3,13 +3,12 @@ import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { formatDisplayLabel } from "../helpers/labelHelpers";
 import { ClassificationContext } from "../services/ClassificationService";
 
-import styles from "../styles/ClassificationImage.module.css";
-
 export interface IClassificationImageProps {
+  alt: string;
   imageUri: string;
 }
 
-const ClassificationImage = ({ imageUri }: IClassificationImageProps) => {
+const ClassificationImage = ({ alt, imageUri }: IClassificationImageProps) => {
   const classificationContext = useContext(ClassificationContext);
   const imageRef = useRef<HTMLImageElement>(null);
   const [classificationResults, setClassificationResults] = useState<string[]>(
@@ -34,12 +33,13 @@ const ClassificationImage = ({ imageUri }: IClassificationImageProps) => {
   return (
     <div>
       <Image
+        alt={alt}
         height={500}
         width={500}
         layout="responsive"
+        objectFit="cover"
         onLoad={(e) => getClassificationResults(e.target as HTMLImageElement)}
         src={imageUri}
-        alt=""
       />
       {classificationResults && (
         <ol>

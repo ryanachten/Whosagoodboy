@@ -9,9 +9,11 @@
   },
   "dependencies": {
     "@tensorflow/tfjs": "^3.13.0",
+    "@types/unsplash-js": "^7.0.0",
     "next": "12.0.8",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "unsplash-js": "^7.0.15"
   },
   "devDependencies": {
     "@types/node": "17.0.8",
