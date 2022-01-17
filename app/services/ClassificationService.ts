@@ -19,7 +19,7 @@ class ClassificationService {
   }
 
   private async loadAndProcessImage(img: HTMLImageElement) {
-    const imageTensor = await browser.fromPixels(img);
+    const imageTensor = await browser.fromPixelsAsync(img);
     const croppedImage = cropImage(imageTensor);
     const resizedImage = resizeImage(croppedImage);
     const batchedImage = batchImage(resizedImage);
@@ -30,7 +30,7 @@ class ClassificationService {
     if (!this.model) return;
 
     const processedImage = await this.loadAndProcessImage(img);
-    const result = (await this.model.predict(processedImage)) as Tensor;
+    const result = this.model.predict(processedImage) as Tensor;
 
     const topComponent = reshape(topk(result, 5).indices, [-1]);
     const resultData = topComponent.dataSync();

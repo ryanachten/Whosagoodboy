@@ -25,7 +25,9 @@ const FileUpload = () => {
         accept="image/*"
         onChange={onFileChange}
       />
-      {image && <ClassificationImage imageUri={image} />}
+      {image && (
+        <ClassificationImage alt="File to be classified" imageUri={image} />
+      )}
     </div>
   );
 };

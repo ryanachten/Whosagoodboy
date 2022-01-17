@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { formatDisplayLabel } from "../helpers/labelHelpers";
 import { ClassificationContext } from "../services/ClassificationService";
+import ResultDialogue from "./ResultDialogue";
 
 export interface IClassificationImageProps {
   alt: string;
@@ -14,6 +15,7 @@ const ClassificationImage = ({ alt, imageUri }: IClassificationImageProps) => {
   const [classificationResults, setClassificationResults] = useState<string[]>(
     []
   );
+  const [resultDialogueQuery, setResultDialogueQuery] = useState("");
 
   useEffect(() => {
     const image = imageRef.current;
@@ -26,6 +28,7 @@ const ClassificationImage = ({ alt, imageUri }: IClassificationImageProps) => {
     async (image: HTMLImageElement) => {
       const results = await classificationContext.classifyImage(image);
       results && setClassificationResults(results);
+      results && setResultDialogueQuery(formatDisplayLabel(results[0]));
     },
     []
   );
@@ -41,11 +44,17 @@ const ClassificationImage = ({ alt, imageUri }: IClassificationImageProps) => {
         onLoad={(e) => getClassificationResults(e.target as HTMLImageElement)}
         src={imageUri}
       />
+      {resultDialogueQuery && <ResultDialogue query={resultDialogueQuery} />}
       {classificationResults && (
         <ol>
-          {classificationResults.map((label, j) => (
-            <li key={label}>{formatDisplayLabel(label)}</li>
-          ))}
+          {classificationResults.map((label, j) => {
+            const formattedLabel = formatDisplayLabel(label);
+            return (
+              <li key={label}>
+                <button>{formattedLabel}</button>
+              </li>
+            );
+          })}
         </ol>
       )}
     </div>

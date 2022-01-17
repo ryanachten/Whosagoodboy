@@ -6,7 +6,11 @@ const nextConfig = {
     UNSPLASH_SECRET_KEY: process.env.UNSPLASH_SECRET_KEY,
   },
   images: {
-    domains: ["images.unsplash.com"],
+    domains: ["images.unsplash.com", "upload.wikimedia.org"],
+  },
+  webpack: (config) => {
+    config.externals["isomorphic-fetch"] = "fetch";
+    return config;
   },
 };
 
