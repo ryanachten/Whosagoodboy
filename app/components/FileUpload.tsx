@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback, useState } from "react";
-import ClassificationImage from "./ClassificationImage";
+import ImageClassification from "./ImageClassification";
 
 import styles from "../styles/FileUpload.module.css";
 
@@ -26,7 +26,10 @@ const FileUpload = () => {
         onChange={onFileChange}
       />
       {image && (
-        <ClassificationImage alt="File to be classified" imageUri={image} />
+        <ImageClassification
+          requestImageAlt="File to be classified"
+          requestImageUri={image}
+        />
       )}
     </div>
   );

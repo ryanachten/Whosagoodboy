@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { Photo } from "../services/PhotoService";
-import ClassificationImage from "./ClassificationImage";
 
 import styles from "../styles/ImageGrid.module.css";
 import { ROUTES } from "../constants/routes";
+import ImageClassification from "./ImageClassification";
 
 const ImageGrid = () => {
   const [photos, setPhotos] = useState<Array<Photo>>([]);
@@ -27,10 +27,10 @@ const ImageGrid = () => {
     <div className={styles.grid}>
       {photos.map(({ urls, alt_description }, i) => {
         return (
-          <ClassificationImage
+          <ImageClassification
             key={i}
-            alt={alt_description ?? ""}
-            imageUri={urls.regular}
+            requestImageAlt={alt_description ?? ""}
+            requestImageUri={urls.regular}
           />
         );
       })}
