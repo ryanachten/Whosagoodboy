@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
-import wiki from "wikijs";
+import wiki from "wikipedia";
 
 export interface IResultDialogueProps {
   query: string;
@@ -22,16 +22,15 @@ const ResultDialogue = ({ query }: IResultDialogueProps) => {
     // - suffix with "dog" to ensure that results pertain to dogs
     let dogQuery = query.includes("dog") ? query : `${query} dog`;
     try {
-      const { results } = await wiki().search(dogQuery);
-      // take the page from the first result as this is the most relevant
-      const pageTitle = results[0];
-      const page = await wiki().page(pageTitle);
-      const pageSummary = await page.summary();
-      const mainImage = await page.mainImage();
+      const { results } = await wiki.search(dogQuery);
 
-      setPageTitle(pageTitle);
-      setSummary(pageSummary);
-      setMainImage(mainImage);
+      // take the page from the first result as this is the most relevant
+      const page = await wiki.page(results[0].title);
+      const summary = await page.summary();
+
+      setPageTitle(summary.title);
+      setSummary(summary.extract);
+      setMainImage(summary.originalimage.source);
     } catch (error) {
       console.log("error fetching wikipedia info for", query, error);
     }
@@ -39,7 +38,7 @@ const ResultDialogue = ({ query }: IResultDialogueProps) => {
 
   return (
     <div>
-      {pageTitle && <p>{pageTitle}</p>}
+      {pageTitle && <b>{pageTitle}</b>}
       {mainImage && (
         <Image
           alt={mainImage}
