@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { formatDisplayLabel } from "../helpers/labelHelpers";
@@ -18,18 +19,29 @@ const ImageClassification = ({
   requestImageUri,
 }: IImageClassificationProps) => {
   const classificationContext = useContext(ClassificationContext);
+  const requestImageRef = useRef<HTMLImageElement>(null);
 
   const [classificationResults, setClassificationResults] = useState<string[]>(
     []
   );
-  const [selectedResult, setSelectedResult] = useState("");
+  const [selectedResult, setSelectedResult] = useState<{
+    index: number;
+    resultQuery: string;
+  } | null>();
 
   const [resultTitle, setResultTitle] = useState("");
   const [resultSummary, setResultSummary] = useState("");
   const [resultImage, setResultImage] = useState("");
 
   useEffect(() => {
-    getResultInfo(selectedResult);
+    const image = requestImageRef.current;
+    if (image) {
+      image.onload = () => getClassificationResults(image);
+    }
+  }, [requestImageRef.current]);
+
+  useEffect(() => {
+    selectedResult && getResultInfo(selectedResult.resultQuery);
   }, [selectedResult]);
 
   const getResultInfo = useCallback(async (query: string) => {
@@ -48,48 +60,34 @@ const ImageClassification = ({
     async (image: HTMLImageElement) => {
       const results = await classificationContext.classifyImage(image);
       results && setClassificationResults(results);
-      results && setSelectedResult(formatDisplayLabel(results[0]));
+      results &&
+        setSelectedResult({
+          index: 0,
+          resultQuery: formatDisplayLabel(results[0]),
+        });
     },
     []
   );
 
   return (
-    <section>
-      <div className={styles.imageWrapper}>
-        <Image
+    <section className={styles.container}>
+      <div className={styles.imageRow}>
+        <img
+          className={styles.image}
           alt={requestImageAlt}
-          height={500}
-          width={500}
-          layout="responsive"
-          objectFit="cover"
-          onLoad={(e) => getClassificationResults(e.target as HTMLImageElement)}
+          ref={requestImageRef}
           src={requestImageUri}
+          crossOrigin="anonymous"
         />
         {resultImage && (
-          <Image
-            alt={resultTitle}
-            src={resultImage}
-            height={500}
-            width={500}
-            layout="responsive"
-            objectFit="cover"
-          />
+          <img className={styles.image} alt={resultTitle} src={resultImage} />
         )}
       </div>
-      {resultTitle && <b>{resultTitle}</b>}
-      {classificationResults && (
-        <ol>
-          {classificationResults.map((label, j) => {
-            const formattedLabel = formatDisplayLabel(label);
-            return (
-              <li key={label}>
-                <button onClick={() => setSelectedResult(formattedLabel)}>
-                  {formattedLabel}
-                </button>
-              </li>
-            );
-          })}
-        </ol>
+      {resultTitle && selectedResult && (
+        <div className={styles.header}>
+          <p>{`Matching doggo! Top result #${selectedResult.index + 1}`}</p>
+          <h3>{resultTitle}</h3>
+        </div>
       )}
       {resultSummary && (
         <p>
@@ -97,6 +95,31 @@ const ImageClassification = ({
             ? `${resultSummary.slice(0, INIT_SUMMARY_LENGTH)}...`
             : resultSummary}
         </p>
+      )}
+      {classificationResults && (
+        <div className={styles.results}>
+          <b>Other matching doggos</b>
+          <ol>
+            {classificationResults.map((label, i) => {
+              const formattedLabel = formatDisplayLabel(label);
+              return (
+                <li key={label}>
+                  <button
+                    className={styles.resultItem}
+                    onClick={() =>
+                      setSelectedResult({
+                        index: i,
+                        resultQuery: formattedLabel,
+                      })
+                    }
+                  >
+                    {formattedLabel}
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
       )}
     </section>
   );

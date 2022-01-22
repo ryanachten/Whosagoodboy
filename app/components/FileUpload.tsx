@@ -17,14 +17,18 @@ const FileUpload = () => {
   );
 
   return (
-    <div className={styles.wrapper}>
-      <label htmlFor="file-upload">Choose dog image to classify</label>
-      <input
-        id="file-upload"
-        type="file"
-        accept="image/*"
-        onChange={onFileChange}
-      />
+    <div className={styles.container}>
+      <div className={styles.inputWrapper}>
+        <label className={styles.inputLabel} htmlFor="file-upload">
+          Upload a dog image to classify!
+        </label>
+        <input
+          id="file-upload"
+          type="file"
+          accept="image/*"
+          onChange={onFileChange}
+        />
+      </div>
       {image && (
         <ImageClassification
           requestImageAlt="File to be classified"

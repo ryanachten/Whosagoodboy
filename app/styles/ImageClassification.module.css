@@ -1,3 +1,36 @@
-.imageWrapper {
-    /* display: flex; */
+.container {
+    max-width: 500px;
+    margin: 20px;
+}
+
+.imageRow {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.image {
+    aspect-ratio: 1;
+    max-width: 250px;
+    min-width: 150px;
+    object-fit: contain;
+    width: calc(50% - 20px);
+}
+
+.image:first-child {
+    margin-right: 20px;
+}
+
+.header {
+    text-align: center;
+}
+
+.results {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.resultItem {
+    text-transform: capitalize;
 }
