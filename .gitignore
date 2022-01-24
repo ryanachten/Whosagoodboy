@@ -1,3 +1,7 @@
 # Python venv folder
 env
 .env
+
+# Terraform
+.terraform/
+terraform.tfstate*
