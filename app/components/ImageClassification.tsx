@@ -5,7 +5,7 @@ import { formatDisplayLabel } from "../helpers/labelHelpers";
 import { requestWikipediaInfo } from "../helpers/wikipediaHelpers";
 import { ClassificationContext } from "../services/ClassificationService";
 
-import styles from "../styles/ImageClassification.module.css";
+import styles from "../styles/ImageClassification.module.scss";
 
 export interface IImageClassificationProps {
   requestImageAlt: string;

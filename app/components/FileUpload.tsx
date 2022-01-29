@@ -1,7 +1,7 @@
 import { ChangeEvent, useCallback, useState } from "react";
 import ImageClassification from "./ImageClassification";
 
-import styles from "../styles/FileUpload.module.css";
+import styles from "../styles/FileUpload.module.scss";
 
 const FileUpload = () => {
   const [image, setImage] = useState("");

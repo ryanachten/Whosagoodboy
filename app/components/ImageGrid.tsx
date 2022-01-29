@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Photo } from "../services/PhotoService";
 
-import styles from "../styles/ImageGrid.module.css";
+import styles from "../styles/ImageGrid.module.scss";
 import { ROUTES } from "../constants/routes";
 import ImageClassification from "./ImageClassification";
 
