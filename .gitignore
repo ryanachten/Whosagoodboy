@@ -1,7 +1,10 @@
+setup.ps1
+
 # Python venv folder
 env
 .env
 
 # Terraform
 .terraform/
+.terraform.tfstate.lock.info
 terraform.tfstate*
