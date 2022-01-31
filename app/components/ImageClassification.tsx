@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import Image from "next/image";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { formatDisplayLabel } from "../helpers/labelHelpers";
 import { requestWikipediaInfo } from "../helpers/wikipediaHelpers";
@@ -72,21 +71,39 @@ const ImageClassification = ({
   return (
     <section className={styles.container}>
       <div className={styles.imageRow}>
-        <img
-          className={styles.image}
-          alt={requestImageAlt}
-          ref={requestImageRef}
-          src={requestImageUri}
-          crossOrigin="anonymous"
-        />
+        <div className={styles.imageWrapper}>
+          <span className={`${styles.imageLabel} ${styles.imageLabelMystery}`}>
+            mystery doggo
+          </span>
+          <img
+            className={`${styles.image} ${styles.imageMystery}`}
+            alt={requestImageAlt}
+            ref={requestImageRef}
+            src={requestImageUri}
+            crossOrigin="anonymous"
+          />
+        </div>
         {resultImage && (
-          <img className={styles.image} alt={resultTitle} src={resultImage} />
+          <div className={styles.imageWrapper}>
+            <span
+              className={`${styles.imageLabel} ${styles.imageLabelMatched}`}
+            >
+              matched doggo
+            </span>
+            <img
+              className={`${styles.image} ${styles.imageMatched}`}
+              alt={resultTitle}
+              src={resultImage}
+            />
+          </div>
         )}
       </div>
       {resultTitle && selectedResult && (
         <div className={styles.header}>
-          <p>{`Matching doggo! Top result #${selectedResult.index + 1}`}</p>
-          <h3>{resultTitle}</h3>
+          <p className={styles.subtitle}>{`Matching doggo! Top result #${
+            selectedResult.index + 1
+          }`}</p>
+          <h3 className={styles.title}>{resultTitle}</h3>
         </div>
       )}
       {resultSummary && (
@@ -97,29 +114,33 @@ const ImageClassification = ({
         </p>
       )}
       {classificationResults && (
-        <div className={styles.results}>
-          <b>Other matching doggos</b>
-          <ol>
-            {classificationResults.map((label, i) => {
-              const formattedLabel = formatDisplayLabel(label);
-              return (
-                <li key={label}>
-                  <button
-                    className={styles.resultItem}
-                    onClick={() =>
-                      setSelectedResult({
-                        index: i,
-                        resultQuery: formattedLabel,
-                      })
-                    }
-                  >
-                    {formattedLabel}
-                  </button>
-                </li>
-              );
-            })}
-          </ol>
-        </div>
+        <>
+          <hr className={styles.divider} />
+
+          <div className={styles.results}>
+            <b className={styles.resultsHeader}>Other matching doggos</b>
+            <ol>
+              {classificationResults.map((label, i) => {
+                const formattedLabel = formatDisplayLabel(label);
+                return (
+                  <li key={label}>
+                    <button
+                      className={styles.resultItem}
+                      onClick={() =>
+                        setSelectedResult({
+                          index: i,
+                          resultQuery: formattedLabel,
+                        })
+                      }
+                    >
+                      {formattedLabel}
+                    </button>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        </>
       )}
     </section>
   );

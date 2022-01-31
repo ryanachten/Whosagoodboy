@@ -1,36 +1,119 @@
+@import "./variables/colors.scss";
+@import "./variables/fonts.scss";
+@import "./variables/sizes.scss";
+
 .container {
-    max-width: 500px;
-    margin: 20px;
+  background-color: $light-pink;
+  border-radius: $s;
+  margin: $m;
+  padding: $l $l $m $l;
+  min-width: calc(100vw - $l * 2);
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  @media only screen and (min-width: $breakpoint-tablet) {
+    min-width: 500px;
+  }
 }
 
 .imageRow {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  margin: $m 0;
+}
+
+.imageWrapper {
+  position: relative;
+  width: min-content;
+}
+
+$imageLabelDiameter: 70px;
+.imageLabel {
+  align-items: center;
+  background-color: $pink;
+  border-radius: 50%;
+  display: flex;
+  font-family: $title;
+  font-size: $font-s;
+  height: $imageLabelDiameter;
+  position: absolute;
+  top: $imageLabelDiameter / -1.4;
+  text-align: center;
+  width: $imageLabelDiameter;
+
+  &.imageLabelMystery {
+    color: $orange;
+    left: $imageLabelDiameter / -1.4;
+    transform: rotate(-20deg);
+  }
+
+  &.imageLabelMatched {
+    color: $red;
+    left: $imageLabelDiameter + $imageLabelDiameter / 1.4;
+    transform: rotate(20deg);
+  }
 }
 
 .image {
-    aspect-ratio: 1;
-    max-width: 250px;
-    min-width: 150px;
-    object-fit: contain;
-    width: calc(50% - 20px);
-}
+  border-radius: $s;
+  height: fit-content;
+  max-width: 250px;
+  min-width: 150px;
+  position: relative;
+  width: calc(50% - $m);
+  z-index: 2;
 
-.image:first-child {
-    margin-right: 20px;
+  &:first-child {
+    margin-right: $m;
+  }
+
+  &.imageMystery {
+    box-shadow: $orange -4px 4px;
+  }
+
+  &.imageMatched {
+    box-shadow: $red 4px 4px;
+  }
 }
 
 .header {
-    text-align: center;
+  text-align: center;
+}
+
+.title {
+  color: $red;
+  font-family: $title;
+  margin: $s 0 $m 0;
+}
+
+.subtitle {
+  font-family: $title;
+}
+
+.divider {
+  border: none;
+  border-top: 1px dashed $light-grey;
+  margin: $m 0 $m 0;
 }
 
 .results {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.resultsHeader {
+  color: $orange;
 }
 
 .resultItem {
-    text-transform: capitalize;
+  text-transform: capitalize;
 }

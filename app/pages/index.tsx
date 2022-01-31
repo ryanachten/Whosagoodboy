@@ -1,8 +1,10 @@
 import type { NextPage } from "next";
-import { useContext, useState, useEffect, useCallback } from "react";
-import FileUpload from "../components/FileUpload";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import ImageGrid from "../components/ImageGrid";
+import Logo from "../components/Logo";
 import { ClassificationContext } from "../services/ClassificationService";
+
+import styles from "../styles/Page.module.scss";
 
 const Home: NextPage = () => {
   const classificationContext = useContext(ClassificationContext);
@@ -22,10 +24,10 @@ const Home: NextPage = () => {
   }
 
   return (
-    <>
-      <FileUpload />
+    <main className={styles.wrapper}>
+      <Logo />
       <ImageGrid />
-    </>
+    </main>
   );
 };
 
