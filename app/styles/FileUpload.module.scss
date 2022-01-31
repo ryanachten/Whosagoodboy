@@ -1,15 +1,75 @@
+@import "./variables/colors.scss";
+@import "./variables/fonts.scss";
+@import "./variables/sizes.scss";
+
 .container {
   align-items: center;
   display: flex;
   flex-direction: column;
-  margin: 20px auto;
+  margin: $m;
+  max-width: 400px;
 }
 
- .inputLabel {
-  margin-bottom: 10px;
- }
+.imageWrapper {
+  position: relative;
+  margin-bottom: $s;
+}
 
-.inputWrapper {
+.imageFrameWrapper {
+  align-items: center;
   display: flex;
-  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+}
+
+.imageFrame {
+  aspect-ratio: 1 / 1;
+  border: 2px $red dashed;
+  border-radius: $s;
+
+  &.imageFrameLandscape {
+    height: 100%;
+  }
+  &.imageFramePortrait {
+    width: 100%;
+  }
+}
+
+.image {
+  border-radius: $s;
+  max-width: 400px;
+  width: 100%;
+}
+
+.input {
+  display: none;
+}
+
+.inputLabel {
+  align-items: center;
+  background-color: $light-pink;
+  border-radius: $s;
+  display: flex;
+  font-size: $font-s;
+  margin-bottom: $m;
+  padding: $m;
+  justify-content: center;
+  width: 100%;
+}
+
+.inputLabelText {
+  margin-right: $s;
+}
+
+.note {
+  font-size: $font-s;
+  text-align: center;
+}
+
+.noteHeader {
+  color: $orange;
+  display: block;
+  margin-bottom: $s;
 }

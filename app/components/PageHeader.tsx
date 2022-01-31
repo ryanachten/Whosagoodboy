@@ -3,6 +3,7 @@ import Logo from "./Logo";
 
 import styles from "../styles/PageHeader.module.scss";
 import DogIcon from "./icons/DogIcon";
+import { IconSize } from "./icons";
 
 const PageHeader = () => {
   return (
@@ -12,7 +13,7 @@ const PageHeader = () => {
         <Link href="/">
           <a className={styles.homeLink}>Home</a>
         </Link>
-        <DogIcon />
+        <DogIcon size={IconSize.SMALL} />
       </div>
     </header>
   );

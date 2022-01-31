@@ -1,5 +1,6 @@
-const PoodleIcon = () => {
-  const size = 120;
+import { IIconProps } from ".";
+
+const PoodleIcon = ({ size }: IIconProps) => {
   return (
     <svg
       width={size}

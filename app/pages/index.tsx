@@ -8,6 +8,7 @@ import PoodleIcon from "../components/icons/PoodleIcon";
 
 import pageStyles from "../styles/Page.module.scss";
 import styles from "../styles/Home.module.scss";
+import { IconSize } from "../components/icons";
 
 const Home: NextPage = () => {
   const classificationContext = useContext(ClassificationContext);
@@ -30,8 +31,14 @@ const Home: NextPage = () => {
     <main className={`${pageStyles.wrapper} ${styles.wrapper}`}>
       <Logo className={styles.logo} />
       <div className={styles.cardWrapper}>
-        <LandingCard variant="upload" icon={<DogFaceIcon />} />
-        <LandingCard variant="gallery" icon={<PoodleIcon />} />
+        <LandingCard
+          variant="upload"
+          icon={<DogFaceIcon size={IconSize.LARGE} />}
+        />
+        <LandingCard
+          variant="gallery"
+          icon={<PoodleIcon size={IconSize.LARGE} />}
+        />
       </div>
     </main>
   );

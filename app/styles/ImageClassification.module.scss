@@ -8,6 +8,7 @@
   margin: $m;
   padding: $l $l $m $l;
   min-width: calc(100vw - $l * 2);
+  max-width: 600px;
 
   &:first-child {
     margin-left: 0;

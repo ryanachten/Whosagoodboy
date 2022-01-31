@@ -1,8 +1,6 @@
-export interface IDogIconProps {
-  size?: number;
-}
+import { IIconProps } from ".";
 
-const DogIcon = ({ size = 30 }: IDogIconProps) => {
+const DogIcon = ({ size }: IIconProps) => {
   return (
     <svg
       width={size}
