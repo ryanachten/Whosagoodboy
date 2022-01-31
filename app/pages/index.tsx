@@ -1,10 +1,13 @@
 import type { NextPage } from "next";
 import React, { useContext, useState, useEffect, useCallback } from "react";
-import ImageGrid from "../components/ImageGrid";
 import Logo from "../components/Logo";
 import { ClassificationContext } from "../services/ClassificationService";
+import LandingCard from "../components/LandingCard";
+import DogFaceIcon from "../components/icons/DogFaceIcon";
+import PoodleIcon from "../components/icons/PoodleIcon";
 
-import styles from "../styles/Page.module.scss";
+import pageStyles from "../styles/Page.module.scss";
+import styles from "../styles/Home.module.scss";
 
 const Home: NextPage = () => {
   const classificationContext = useContext(ClassificationContext);
@@ -24,9 +27,12 @@ const Home: NextPage = () => {
   }
 
   return (
-    <main className={styles.wrapper}>
-      <Logo />
-      <ImageGrid />
+    <main className={`${pageStyles.wrapper} ${styles.wrapper}`}>
+      <Logo className={styles.logo} />
+      <div className={styles.cardWrapper}>
+        <LandingCard variant="upload" icon={<DogFaceIcon />} />
+        <LandingCard variant="gallery" icon={<PoodleIcon />} />
+      </div>
     </main>
   );
 };

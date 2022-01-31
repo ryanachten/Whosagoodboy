@@ -62,6 +62,7 @@ $imageLabelDiameter: 70px;
   }
 }
 
+$boxShadowSize: 4px;
 .image {
   border-radius: $s;
   height: fit-content;
@@ -76,11 +77,11 @@ $imageLabelDiameter: 70px;
   }
 
   &.imageMystery {
-    box-shadow: $orange -4px 4px;
+    box-shadow: $orange -#{$boxShadowSize} $boxShadowSize;
   }
 
   &.imageMatched {
-    box-shadow: $red 4px 4px;
+    box-shadow: $red $boxShadowSize $boxShadowSize;
   }
 }
 
