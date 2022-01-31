@@ -1,8 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { formatDisplayLabel } from "../helpers/labelHelpers";
 import { requestWikipediaInfo } from "../helpers/wikipediaHelpers";
 import { ClassificationContext } from "../services/ClassificationService";
+import Image from "./Image";
 
 import styles from "../styles/ImageClassification.module.scss";
 
@@ -20,6 +20,7 @@ const ImageClassification = ({
   const classificationContext = useContext(ClassificationContext);
   const requestImageRef = useRef<HTMLImageElement>(null);
 
+  const [classificationLoading, setClassificationLoading] = useState(true);
   const [classificationResults, setClassificationResults] = useState<string[]>(
     []
   );
@@ -28,6 +29,7 @@ const ImageClassification = ({
     resultQuery: string;
   } | null>();
 
+  const [resultLoading, setResultLoading] = useState(true);
   const [resultTitle, setResultTitle] = useState("");
   const [resultSummary, setResultSummary] = useState("");
   const [resultImage, setResultImage] = useState("");
@@ -52,6 +54,7 @@ const ImageClassification = ({
       setResultTitle(result.title);
       setResultSummary(result.summary);
       setResultImage(result.imageUri);
+      setResultLoading(false);
     }
   }, []);
 
@@ -64,6 +67,7 @@ const ImageClassification = ({
           index: 0,
           resultQuery: formatDisplayLabel(results[0]),
         });
+      setClassificationLoading(false);
     },
     []
   );
@@ -75,28 +79,25 @@ const ImageClassification = ({
           <span className={`${styles.imageLabel} ${styles.imageLabelMystery}`}>
             mystery doggo
           </span>
-          <img
-            className={`${styles.image} ${styles.imageMystery}`}
+          <Image
             alt={requestImageAlt}
-            ref={requestImageRef}
+            iamgeRef={requestImageRef}
             src={requestImageUri}
-            crossOrigin="anonymous"
+            loading={classificationLoading}
+            variant="mystery"
           />
         </div>
-        {resultImage && (
-          <div className={styles.imageWrapper}>
-            <span
-              className={`${styles.imageLabel} ${styles.imageLabelMatched}`}
-            >
-              matched doggo
-            </span>
-            <img
-              className={`${styles.image} ${styles.imageMatched}`}
-              alt={resultTitle}
-              src={resultImage}
-            />
-          </div>
-        )}
+        <div className={styles.imageWrapper}>
+          <span className={`${styles.imageLabel} ${styles.imageLabelMatched}`}>
+            matched doggo
+          </span>
+          <Image
+            alt={resultTitle}
+            src={resultImage}
+            loading={resultLoading}
+            variant="matched"
+          />
+        </div>
       </div>
       {resultTitle && selectedResult && (
         <div className={styles.header}>

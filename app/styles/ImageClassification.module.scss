@@ -63,29 +63,6 @@ $imageLabelDiameter: 70px;
   }
 }
 
-$boxShadowSize: 4px;
-.image {
-  border-radius: $s;
-  height: fit-content;
-  max-width: 250px;
-  min-width: 150px;
-  position: relative;
-  width: calc(50% - $m);
-  z-index: 2;
-
-  &:first-child {
-    margin-right: $m;
-  }
-
-  &.imageMystery {
-    box-shadow: $orange -#{$boxShadowSize} $boxShadowSize;
-  }
-
-  &.imageMatched {
-    box-shadow: $red $boxShadowSize $boxShadowSize;
-  }
-}
-
 .header {
   text-align: center;
 }
