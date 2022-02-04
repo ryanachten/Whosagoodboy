@@ -1,0 +1,13 @@
+@import "./variables/sizes.scss";
+
+.wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
+
+.loading {
+  border-radius: $s;
+}

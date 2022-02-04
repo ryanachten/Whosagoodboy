@@ -1,30 +1,20 @@
 import type { NextPage } from "next";
-import React, { useContext, useState, useEffect, useCallback } from "react";
+import React from "react";
 import Logo from "../components/Logo";
-import { ClassificationContext } from "../services/ClassificationService";
 import LandingCard from "../components/LandingCard";
 import DogFaceIcon from "../components/icons/DogFaceIcon";
 import PoodleIcon from "../components/icons/PoodleIcon";
+import { IconSize } from "../components/icons";
+import useClassificationSetup from "../hooks/useClassificationSetup";
+import LoadingSplash from "../components/LoadingSplash";
 
 import pageStyles from "../styles/Page.module.scss";
 import styles from "../styles/Home.module.scss";
-import { IconSize } from "../components/icons";
 
 const Home: NextPage = () => {
-  const classificationContext = useContext(ClassificationContext);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    init();
-  }, []);
-
-  const init = useCallback(async () => {
-    await classificationContext.init();
-    setLoading(false);
-  }, []);
-
+  const loading = useClassificationSetup();
   if (loading) {
-    return <p>Loading</p>;
+    return <LoadingSplash />;
   }
 
   return (

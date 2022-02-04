@@ -12,10 +12,12 @@ import { batchImage, cropImage, resizeImage } from "../helpers/imageHelpers";
 import labels from "./dog_labels.json";
 
 class ClassificationService {
-  model?: LayersModel;
+  public setup: boolean = false;
+  private model?: LayersModel;
 
   async init() {
     this.model = await loadLayersModel("converted_model/model.json");
+    this.setup = true;
   }
 
   private async loadAndProcessImage(img: HTMLImageElement) {

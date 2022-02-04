@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { ChangeEvent, useCallback, useState } from "react";
 
 import styles from "../styles/FileUpload.module.scss";
