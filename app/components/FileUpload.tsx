@@ -10,9 +10,9 @@ export interface IFileUploadProps {
 
 const FileUpload = ({ onImageSelected }: IFileUploadProps) => {
   const [image, setImage] = useState("");
-  const [orientation, setOrientation] = useState<"landscape" | "portrait">(
-    "portrait"
-  );
+  const [orientation, setOrientation] = useState<
+    "landscape" | "portrait" | null
+  >(null);
 
   const onFileChange = useCallback(
     ({ target }: ChangeEvent<HTMLInputElement>) => {
@@ -36,13 +36,15 @@ const FileUpload = ({ onImageSelected }: IFileUploadProps) => {
       {image && (
         <div className={styles.imageWrapper}>
           <div className={styles.imageFrameWrapper}>
-            <div
-              className={`${styles.imageFrame} ${
-                orientation === "landscape"
-                  ? styles.imageFrameLandscape
-                  : styles.imageFramePortrait
-              }`}
-            />
+            {orientation && (
+              <div
+                className={`${styles.imageFrame} ${
+                  orientation === "landscape"
+                    ? styles.imageFrameLandscape
+                    : styles.imageFramePortrait
+                }`}
+              />
+            )}
           </div>
           <img
             className={styles.image}

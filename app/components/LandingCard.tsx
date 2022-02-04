@@ -5,7 +5,7 @@ import styles from "../styles/LandingCard.module.scss";
 
 export interface ILandingCardProps {
   variant: "upload" | "gallery";
-  icon: ReactElement;
+  icon: ReactElement<any>;
 }
 
 const LandingCard = ({ icon, variant }: ILandingCardProps) => {

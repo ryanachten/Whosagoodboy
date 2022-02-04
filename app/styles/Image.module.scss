@@ -10,7 +10,6 @@ $boxShadowSize: 4px;
   border-radius: $s;
   height: fit-content;
   max-width: 250px;
-  min-height: 150px;
   min-width: 150px;
   position: relative;
   width: calc(50% - $m);
@@ -20,11 +19,17 @@ $boxShadowSize: 4px;
     margin-right: $m;
   }
 
+  &.loadingImage {
+    min-height: 150px;
+  }
+
   &.imageMystery {
+    background-color: $orange;
     box-shadow: $orange -#{$boxShadowSize} $boxShadowSize;
   }
 
   &.imageMatched {
+    background-color: $red;
     box-shadow: $red $boxShadowSize $boxShadowSize;
   }
 }
@@ -32,18 +37,24 @@ $boxShadowSize: 4px;
 .loading {
   align-items: center;
   display: flex;
-  background-color: $light-pink;
   border-radius: $s;
   position: absolute;
   justify-content: center;
   height: 100%;
   width: 100%;
   z-index: 3;
+
+  &.imageMystery {
+    background-color: $orange;
+  }
+
+  &.imageMatched {
+    background-color: $red;
+  }
 }
 
 $loadingRingDiameter: 80px;
 $loadingRingWidth: 8px;
-
 .loadingRing {
   display: inline-block;
   position: relative;
@@ -52,6 +63,8 @@ $loadingRingWidth: 8px;
 
   div {
     animation: loadingRingAnimation 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border: $loadingRingWidth solid $light-pink;
+    border-color: $light-pink transparent transparent transparent;
     border-radius: 50%;
     margin: $loadingRingWidth;
     position: absolute;
@@ -67,16 +80,6 @@ $loadingRingWidth: 8px;
     &:nth-child(3) {
       animation-delay: -0.15s;
     }
-  }
-
-  &.imageMystery div {
-    border: $loadingRingWidth solid $orange;
-    border-color: $orange transparent transparent transparent;
-  }
-
-  &.imageMatched div {
-    border: $loadingRingWidth solid $red;
-    border-color: $red transparent transparent transparent;
   }
 }
 

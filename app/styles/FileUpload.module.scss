@@ -15,10 +15,12 @@
   margin-bottom: $s;
 }
 
+$frame-border-width: 2px;
+
 .imageFrameWrapper {
   align-items: center;
   display: flex;
-  height: 100%;
+  height: calc(100% - $frame-border-width * 2);
   justify-content: center;
   position: absolute;
   width: 100%;
@@ -26,7 +28,7 @@
 
 .imageFrame {
   aspect-ratio: 1 / 1;
-  border: 2px $red dashed;
+  border: $frame-border-width $red dashed;
   border-radius: $s;
 
   &.imageFrameLandscape {

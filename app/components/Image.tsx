@@ -1,5 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-
 import { RefObject } from "react";
 
 import styles from "../styles/Image.module.scss";
@@ -19,8 +17,8 @@ const Image = ({ alt, loading, src, iamgeRef, variant }: IImageProps) => {
   return (
     <div className={styles.imageWrapper}>
       {loading && (
-        <div className={styles.loading}>
-          <div className={`${styles.loadingRing} ${className ?? ""}`}>
+        <div className={`${styles.loading} ${className ?? ""}`}>
+          <div className={styles.loadingRing}>
             <div></div>
             <div></div>
             <div></div>
@@ -29,7 +27,9 @@ const Image = ({ alt, loading, src, iamgeRef, variant }: IImageProps) => {
         </div>
       )}
       <img
-        className={`${styles.image} ${className ?? ""}`}
+        className={`${styles.image} ${loading ? styles.loadingImage : ""} ${
+          className ?? ""
+        }`}
         alt={alt}
         ref={iamgeRef}
         src={src}
