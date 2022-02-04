@@ -1,11 +1,10 @@
-/* eslint-disable @next/next/no-img-element */
-import Image from "next/image";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { formatDisplayLabel } from "../helpers/labelHelpers";
-import { requestWikipediaInfo } from "../helpers/wikipediaHelpers";
+import { IResultInfo, requestWikipediaInfo } from "../helpers/wikipediaHelpers";
 import { ClassificationContext } from "../services/ClassificationService";
+import Image from "./Image";
 
-import styles from "../styles/ImageClassification.module.css";
+import styles from "../styles/ImageClassification.module.scss";
 
 export interface IImageClassificationProps {
   requestImageAlt: string;
@@ -21,6 +20,7 @@ const ImageClassification = ({
   const classificationContext = useContext(ClassificationContext);
   const requestImageRef = useRef<HTMLImageElement>(null);
 
+  const [classificationLoading, setClassificationLoading] = useState(true);
   const [classificationResults, setClassificationResults] = useState<string[]>(
     []
   );
@@ -29,9 +29,7 @@ const ImageClassification = ({
     resultQuery: string;
   } | null>();
 
-  const [resultTitle, setResultTitle] = useState("");
-  const [resultSummary, setResultSummary] = useState("");
-  const [resultImage, setResultImage] = useState("");
+  const [result, setResult] = useState<IResultInfo>();
 
   useEffect(() => {
     const image = requestImageRef.current;
@@ -50,9 +48,7 @@ const ImageClassification = ({
     const dogQuery = query.includes("dog") ? query : `${query} dog`;
     const result = await requestWikipediaInfo(dogQuery);
     if (result) {
-      setResultTitle(result.title);
-      setResultSummary(result.summary);
-      setResultImage(result.imageUri);
+      setResult(result);
     }
   }, []);
 
@@ -65,6 +61,7 @@ const ImageClassification = ({
           index: 0,
           resultQuery: formatDisplayLabel(results[0]),
         });
+      setClassificationLoading(false);
     },
     []
   );
@@ -72,54 +69,87 @@ const ImageClassification = ({
   return (
     <section className={styles.container}>
       <div className={styles.imageRow}>
-        <img
-          className={styles.image}
-          alt={requestImageAlt}
-          ref={requestImageRef}
-          src={requestImageUri}
-          crossOrigin="anonymous"
-        />
-        {resultImage && (
-          <img className={styles.image} alt={resultTitle} src={resultImage} />
-        )}
+        <div className={styles.imageWrapper}>
+          <span className={`${styles.imageLabel} ${styles.imageLabelMystery}`}>
+            mystery doggo
+          </span>
+          <Image
+            alt={requestImageAlt}
+            iamgeRef={requestImageRef}
+            src={requestImageUri}
+            loading={classificationLoading}
+            variant="mystery"
+          />
+        </div>
+        <div className={styles.imageWrapper}>
+          <span className={`${styles.imageLabel} ${styles.imageLabelMatched}`}>
+            matched doggo
+          </span>
+          <Image
+            alt={result?.title ?? "Loading"}
+            src={result?.imageUri}
+            loading={!result}
+            variant="matched"
+          />
+        </div>
       </div>
-      {resultTitle && selectedResult && (
+      {result && selectedResult && (
         <div className={styles.header}>
-          <p>{`Matching doggo! Top result #${selectedResult.index + 1}`}</p>
-          <h3>{resultTitle}</h3>
+          <p className={styles.subtitle}>{`Matching doggo! Top result #${
+            selectedResult.index + 1
+          }`}</p>
+          <h3 className={styles.title}>{result.title}</h3>
         </div>
       )}
-      {resultSummary && (
-        <p>
-          {resultSummary.length > INIT_SUMMARY_LENGTH
-            ? `${resultSummary.slice(0, INIT_SUMMARY_LENGTH)}...`
-            : resultSummary}
-        </p>
+      {result && (
+        <div>
+          <p className={styles.resultSummary}>
+            {result.summary.length > INIT_SUMMARY_LENGTH
+              ? `${result.summary.slice(0, INIT_SUMMARY_LENGTH)}...`
+              : result.summary}
+          </p>
+          <a
+            className={styles.resultLink}
+            href={result.pageUri}
+            target="_blank"
+            rel="noreferrer"
+          >
+            - Wikipedia
+          </a>
+        </div>
       )}
       {classificationResults && (
-        <div className={styles.results}>
-          <b>Other matching doggos</b>
-          <ol>
-            {classificationResults.map((label, i) => {
-              const formattedLabel = formatDisplayLabel(label);
-              return (
-                <li key={label}>
-                  <button
-                    className={styles.resultItem}
-                    onClick={() =>
-                      setSelectedResult({
-                        index: i,
-                        resultQuery: formattedLabel,
-                      })
-                    }
-                  >
-                    {formattedLabel}
-                  </button>
-                </li>
-              );
-            })}
-          </ol>
-        </div>
+        <>
+          <hr className={styles.divider} />
+
+          <div className={styles.results}>
+            <b className={styles.resultsHeader}>Other matching doggos</b>
+            <ol>
+              {classificationResults.map((label, i) => {
+                const formattedLabel = formatDisplayLabel(label);
+                return (
+                  <li key={label}>
+                    <button
+                      className={`${styles.resultItem} ${
+                        selectedResult?.index === i
+                          ? styles.resultItemSelected
+                          : ""
+                      }`}
+                      onClick={() =>
+                        setSelectedResult({
+                          index: i,
+                          resultQuery: formattedLabel,
+                        })
+                      }
+                    >
+                      {formattedLabel}
+                    </button>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        </>
       )}
     </section>
   );

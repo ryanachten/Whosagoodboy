@@ -4,6 +4,7 @@ export interface IResultInfo {
   title: string;
   summary: string;
   imageUri: string;
+  pageUri: string;
 }
 
 export const requestWikipediaInfo = async (
@@ -17,12 +18,14 @@ export const requestWikipediaInfo = async (
 
     // take the page from the first result as this is the most relevant
     const page = await wiki.page(results[0].title);
-    const { title, extract, originalimage } = await page.summary();
+    const { title, extract, originalimage, content_urls } =
+      await page.summary();
 
     return {
       title,
       summary: extract,
       imageUri: originalimage.source,
+      pageUri: content_urls.desktop.page,
     };
   } catch (error) {
     console.log("error fetching wikipedia info for", query, error);

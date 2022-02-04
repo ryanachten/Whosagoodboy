@@ -1,0 +1,43 @@
+@import "./variables/colors.scss";
+@import "./variables/fonts.scss";
+@import "./variables/sizes.scss";
+
+$boxShadowSize: 8px;
+.wrapper {
+  background-color: $light-pink;
+  border-radius: $s;
+  margin-bottom: $m;
+  max-width: 400px;
+  padding: $l;
+  text-align: center;
+
+  &.wrapperUpload {
+    box-shadow: $orange -#{$boxShadowSize} $boxShadowSize;
+
+    .title {
+      color: $orange;
+    }
+  }
+
+  &.wrapperGallery {
+    box-shadow: $red $boxShadowSize $boxShadowSize;
+
+    .title {
+      color: $red;
+    }
+  }
+
+  @media only screen and (min-width: $breakpoint-tablet) {
+    margin-bottom: 0;
+    width: calc(50% - $m / 2);
+
+    &:first-child {
+      margin-right: $m;
+    }
+  }
+}
+
+.title {
+  font-family: $title;
+  font-size: $font-m;
+}
