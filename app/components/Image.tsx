@@ -4,7 +4,7 @@ import styles from "../styles/Image.module.scss";
 
 export interface IImageProps {
   alt: string;
-  src: string;
+  src?: string;
   loading: boolean;
   iamgeRef?: RefObject<HTMLImageElement>;
   variant?: "mystery" | "matched";

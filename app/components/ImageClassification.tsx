@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { formatDisplayLabel } from "../helpers/labelHelpers";
-import { requestWikipediaInfo } from "../helpers/wikipediaHelpers";
+import { IResultInfo, requestWikipediaInfo } from "../helpers/wikipediaHelpers";
 import { ClassificationContext } from "../services/ClassificationService";
 import Image from "./Image";
 
@@ -29,10 +29,7 @@ const ImageClassification = ({
     resultQuery: string;
   } | null>();
 
-  const [resultLoading, setResultLoading] = useState(true);
-  const [resultTitle, setResultTitle] = useState("");
-  const [resultSummary, setResultSummary] = useState("");
-  const [resultImage, setResultImage] = useState("");
+  const [result, setResult] = useState<IResultInfo>();
 
   useEffect(() => {
     const image = requestImageRef.current;
@@ -51,10 +48,7 @@ const ImageClassification = ({
     const dogQuery = query.includes("dog") ? query : `${query} dog`;
     const result = await requestWikipediaInfo(dogQuery);
     if (result) {
-      setResultTitle(result.title);
-      setResultSummary(result.summary);
-      setResultImage(result.imageUri);
-      setResultLoading(false);
+      setResult(result);
     }
   }, []);
 
@@ -92,27 +86,37 @@ const ImageClassification = ({
             matched doggo
           </span>
           <Image
-            alt={resultTitle}
-            src={resultImage}
-            loading={resultLoading}
+            alt={result?.title ?? "Loading"}
+            src={result?.imageUri}
+            loading={!result}
             variant="matched"
           />
         </div>
       </div>
-      {resultTitle && selectedResult && (
+      {result && selectedResult && (
         <div className={styles.header}>
           <p className={styles.subtitle}>{`Matching doggo! Top result #${
             selectedResult.index + 1
           }`}</p>
-          <h3 className={styles.title}>{resultTitle}</h3>
+          <h3 className={styles.title}>{result.title}</h3>
         </div>
       )}
-      {resultSummary && (
-        <p>
-          {resultSummary.length > INIT_SUMMARY_LENGTH
-            ? `${resultSummary.slice(0, INIT_SUMMARY_LENGTH)}...`
-            : resultSummary}
-        </p>
+      {result && (
+        <div>
+          <p className={styles.resultSummary}>
+            {result.summary.length > INIT_SUMMARY_LENGTH
+              ? `${result.summary.slice(0, INIT_SUMMARY_LENGTH)}...`
+              : result.summary}
+          </p>
+          <a
+            className={styles.resultLink}
+            href={result.pageUri}
+            target="_blank"
+            rel="noreferrer"
+          >
+            - Wikipedia
+          </a>
+        </div>
       )}
       {classificationResults && (
         <>
@@ -126,7 +130,11 @@ const ImageClassification = ({
                 return (
                   <li key={label}>
                     <button
-                      className={styles.resultItem}
+                      className={`${styles.resultItem} ${
+                        selectedResult?.index === i
+                          ? styles.resultItemSelected
+                          : ""
+                      }`}
                       onClick={() =>
                         setSelectedResult({
                           index: i,

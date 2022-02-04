@@ -95,4 +95,18 @@ $imageLabelDiameter: 70px;
 
 .resultItem {
   text-transform: capitalize;
+  outline: none;
+
+  &.resultItemSelected {
+    font-weight: bold;
+  }
+}
+
+.resultSummary {
+  margin-bottom: $xs;
+}
+
+.resultLink {
+  color: $grey;
+  font-size: $font-s;
 }
