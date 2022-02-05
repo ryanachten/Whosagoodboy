@@ -25,12 +25,13 @@ const ImageGrid = () => {
 
   return (
     <div className={styles.grid}>
-      {photos.map(({ urls, alt_description }, i) => {
+      {photos.map(({ urls, alt_description, user }, i) => {
         return (
           <ImageClassification
             key={i}
             requestImageAlt={alt_description ?? ""}
             requestImageUri={urls.regular}
+            requestImageUser={user}
           />
         );
       })}

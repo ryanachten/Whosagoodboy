@@ -15,10 +15,6 @@ $boxShadowSize: 4px;
   width: calc(50% - $m);
   z-index: 2;
 
-  &:first-child {
-    margin-right: $m;
-  }
-
   &.loadingImage {
     min-height: 150px;
   }

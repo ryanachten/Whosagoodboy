@@ -34,6 +34,10 @@
 .imageWrapper {
   position: relative;
   width: min-content;
+
+  &:first-child {
+    margin-right: $m;
+  }
 }
 
 $imageLabelDiameter: 70px;
@@ -60,6 +64,19 @@ $imageLabelDiameter: 70px;
     color: $red;
     left: $imageLabelDiameter + $imageLabelDiameter / 1.4;
     transform: rotate(20deg);
+  }
+}
+
+.imageReferral {
+  color: $grey;
+  display: inline-block;
+  font-size: $font-xs;
+  line-height: 1.5;
+  margin-top: $s;
+  text-align: center;
+
+  a {
+    text-decoration: underline;
   }
 }
 
@@ -108,5 +125,5 @@ $imageLabelDiameter: 70px;
 
 .resultLink {
   color: $grey;
-  font-size: $font-s;
+  font-size: $font-xs;
 }
