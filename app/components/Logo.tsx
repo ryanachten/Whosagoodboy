@@ -1,3 +1,5 @@
+import Link from "next/link";
+import React from "react";
 import styles from "../styles/Logo.module.scss";
 
 export interface ILogoProps {
@@ -5,12 +7,16 @@ export interface ILogoProps {
 }
 
 const Logo = ({ className }: ILogoProps) => (
-  <h1
-    className={`${styles.logo} ${className ? className : ""}`}
-    aria-label="who's a good boy"
-  >
-    whosagoodboy
-  </h1>
+  <Link href="/">
+    <a>
+      <h1
+        className={`${styles.logo} ${className ? className : ""}`}
+        aria-label="who's a good boy"
+      >
+        whosagoodboy
+      </h1>
+    </a>
+  </Link>
 );
 
 export default Logo;

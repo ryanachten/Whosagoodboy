@@ -6,9 +6,10 @@ $boxShadowSize: 8px;
 .wrapper {
   background-color: $light-pink;
   border-radius: $s;
-  margin-bottom: $m;
-  max-width: 400px;
-  padding: $l;
+  font-size: $font-s;
+  margin: $s $s $m $s;
+  max-width: 350px;
+  padding: $m;
   text-align: center;
 
   &.wrapperUpload {
@@ -28,8 +29,10 @@ $boxShadowSize: 8px;
   }
 
   @media only screen and (min-width: $breakpoint-tablet) {
+    font-size: $font-m;
     margin-bottom: 0;
-    width: calc(50% - $m / 2);
+    padding: $l;
+    width: calc(50% - $l / 2);
 
     &:first-child {
       margin-right: $m;

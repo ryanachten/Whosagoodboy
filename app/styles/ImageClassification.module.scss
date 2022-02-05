@@ -6,8 +6,8 @@
   background-color: $light-pink;
   border-radius: $s;
   margin: $m;
-  padding: $l $l $m $l;
-  min-width: calc(100vw - $l * 2);
+  padding: $l $m $m $m;
+  min-width: calc(100vw - $l);
   max-width: 600px;
 
   &:first-child {
@@ -19,6 +19,8 @@
   }
 
   @media only screen and (min-width: $breakpoint-tablet) {
+    padding: $l $l $m $l;
+    min-width: calc(100vw - $l * 2);
     min-width: 500px;
   }
 }
@@ -34,9 +36,14 @@
 .imageWrapper {
   position: relative;
   width: min-content;
-
   &:first-child {
-    margin-right: $m;
+    margin: 0 0 $l 0;
+  }
+
+  @media only screen and (min-width: $breakpoint-tablet) {
+    &:first-child {
+      margin: 0 $m 0 0;
+    }
   }
 }
 
@@ -111,8 +118,9 @@ $imageLabelDiameter: 70px;
 }
 
 .resultItem {
-  text-transform: capitalize;
   outline: none;
+  text-align: left;
+  text-transform: capitalize;
 
   &.resultItemSelected {
     font-weight: bold;

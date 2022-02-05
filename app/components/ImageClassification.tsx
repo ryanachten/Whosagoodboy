@@ -87,7 +87,7 @@ const ImageClassification = ({
             loading={classificationLoading}
             variant="mystery"
           />
-          {requestImageUser && (
+          {requestImageUser && !classificationLoading && (
             <span className={styles.imageReferral}>
               Photo by{" "}
               <a
@@ -145,7 +145,7 @@ const ImageClassification = ({
           </a>
         </div>
       )}
-      {classificationResults && (
+      {result && (
         <>
           <hr className={styles.divider} />
 

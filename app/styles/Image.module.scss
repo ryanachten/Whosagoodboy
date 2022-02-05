@@ -17,6 +17,7 @@ $boxShadowSize: 4px;
 
   &.loadingImage {
     min-height: 150px;
+    opacity: 0;
   }
 
   &.imageMystery {

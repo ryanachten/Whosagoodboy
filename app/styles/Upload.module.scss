@@ -1,5 +1,7 @@
 .content {
+  align-items: center;
   display: flex;
   flex-flow: row wrap;
+  min-height: 80vh;
   justify-content: center;
 }
