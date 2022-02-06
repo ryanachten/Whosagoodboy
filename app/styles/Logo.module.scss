@@ -1,8 +1,13 @@
 @import "./variables/colors.scss";
 @import "./variables/fonts.scss";
+@import "./variables/sizes.scss";
 
 .logo {
   color: $red;
   font-family: $title;
-  font-size: $font-l;
+  font-size: $font-m;
+
+  @media only screen and (min-width: $breakpoint-tablet) {
+    font-size: $font-l;
+  }
 }

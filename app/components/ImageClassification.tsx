@@ -1,14 +1,20 @@
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { Basic as User } from "unsplash-js/dist/methods/users/types";
 import { formatDisplayLabel } from "../helpers/labelHelpers";
 import { IResultInfo, requestWikipediaInfo } from "../helpers/wikipediaHelpers";
 import { ClassificationContext } from "../services/ClassificationService";
 import Image from "./Image";
+import {
+  UNSPLASH_REFERRAL_QUERY_PARAM,
+  UNSPLASH_URL,
+} from "../constants/routes";
 
 import styles from "../styles/ImageClassification.module.scss";
 
 export interface IImageClassificationProps {
   requestImageAlt: string;
   requestImageUri: string;
+  requestImageUser?: User;
 }
 
 const INIT_SUMMARY_LENGTH = 300;
@@ -16,6 +22,7 @@ const INIT_SUMMARY_LENGTH = 300;
 const ImageClassification = ({
   requestImageAlt,
   requestImageUri,
+  requestImageUser,
 }: IImageClassificationProps) => {
   const classificationContext = useContext(ClassificationContext);
   const requestImageRef = useRef<HTMLImageElement>(null);
@@ -80,6 +87,26 @@ const ImageClassification = ({
             loading={classificationLoading}
             variant="mystery"
           />
+          {requestImageUser && !classificationLoading && (
+            <span className={styles.imageReferral}>
+              Photo by{" "}
+              <a
+                href={`${requestImageUser.links.html}${UNSPLASH_REFERRAL_QUERY_PARAM}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {requestImageUser.name}
+              </a>{" "}
+              on{" "}
+              <a
+                href={`${UNSPLASH_URL}${UNSPLASH_REFERRAL_QUERY_PARAM}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Unsplash
+              </a>
+            </span>
+          )}
         </div>
         <div className={styles.imageWrapper}>
           <span className={`${styles.imageLabel} ${styles.imageLabelMatched}`}>
@@ -118,7 +145,7 @@ const ImageClassification = ({
           </a>
         </div>
       )}
-      {classificationResults && (
+      {result && (
         <>
           <hr className={styles.divider} />
 
