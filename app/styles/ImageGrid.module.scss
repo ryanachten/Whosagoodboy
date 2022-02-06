@@ -1,4 +1,5 @@
 @import "./variables/colors.scss";
+@import "./variables/fonts.scss";
 @import "./variables/sizes.scss";
 
 $scrollbar-background: $pink;
@@ -8,6 +9,7 @@ $scrollbar-thumb: $red;
   display: flex;
   overflow-x: scroll;
   overflow-y: hidden;
+  position: relative;
 
   // Scrollbar styling for FF
   scrollbar-color: $scrollbar-thumb $scrollbar-background;
