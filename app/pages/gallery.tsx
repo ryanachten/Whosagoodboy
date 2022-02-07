@@ -1,20 +1,17 @@
 import type { NextPage } from "next";
+import Head from "next/head";
 import React from "react";
 import ImageGrid from "../components/ImageGrid";
-import LoadingSplash from "../components/LoadingSplash";
 import PageHeader from "../components/PageHeader";
-import useClassificationSetup from "../hooks/useClassificationSetup";
 
 import styles from "../styles/Page.module.scss";
 
 const Gallery: NextPage = () => {
-  const loading = useClassificationSetup();
-  if (loading) {
-    return <LoadingSplash />;
-  }
-
   return (
     <main className={styles.wrapper}>
+      <Head>
+        <title>whosagoodboy | Gallery</title>
+      </Head>
       <PageHeader />
       <ImageGrid />
     </main>
