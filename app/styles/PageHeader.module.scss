@@ -1,0 +1,19 @@
+@import "./variables/colors.scss";
+@import "./variables/sizes.scss";
+
+.wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 $m;
+}
+
+.rightWrapper {
+  align-items: center;
+  display: flex;
+}
+
+.homeLink {
+  color: $orange;
+  margin-right: $m;
+}

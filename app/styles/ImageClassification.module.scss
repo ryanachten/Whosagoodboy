@@ -1,0 +1,137 @@
+@import "./variables/colors.scss";
+@import "./variables/fonts.scss";
+@import "./variables/sizes.scss";
+
+.container {
+  background-color: $light-pink;
+  border-radius: $s;
+  margin: $m;
+  padding: $l $m $m $m;
+  min-width: calc(100vw - $m * 2);
+  max-width: 600px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  @media only screen and (min-width: $breakpoint-tablet) {
+    padding: $l $l $m $l;
+    min-width: calc(100vw - $l * 2);
+    min-width: 500px;
+  }
+}
+
+.imageRow {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  margin: $m 0;
+}
+
+.imageWrapper {
+  position: relative;
+  width: min-content;
+  &:first-child {
+    margin: 0 0 $l 0;
+  }
+
+  @media only screen and (min-width: $breakpoint-tablet) {
+    &:first-child {
+      margin: 0 $m 0 0;
+    }
+  }
+}
+
+$imageLabelDiameter: 70px;
+.imageLabel {
+  align-items: center;
+  background-color: $pink;
+  border-radius: 50%;
+  display: flex;
+  font-family: $title;
+  font-size: $font-s;
+  height: $imageLabelDiameter;
+  position: absolute;
+  top: $imageLabelDiameter / -1.4;
+  text-align: center;
+  width: $imageLabelDiameter;
+
+  &.imageLabelMystery {
+    color: $orange;
+    left: $imageLabelDiameter / -1.4;
+    transform: rotate(-20deg);
+  }
+
+  &.imageLabelMatched {
+    color: $red;
+    left: $imageLabelDiameter + $imageLabelDiameter / 1.4;
+    transform: rotate(20deg);
+  }
+}
+
+.imageReferral {
+  color: $grey;
+  display: inline-block;
+  font-size: $font-xs;
+  line-height: 1.5;
+  margin-top: $s;
+  text-align: center;
+
+  a {
+    text-decoration: underline;
+  }
+}
+
+.header {
+  text-align: center;
+}
+
+.title {
+  color: $red;
+  font-family: $title;
+  margin: $s 0 $m 0;
+}
+
+.subtitle {
+  font-family: $title;
+}
+
+.divider {
+  border: none;
+  border-top: 1px dashed $light-grey;
+  margin: $m 0 $m 0;
+}
+
+.results {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.resultsHeader {
+  color: $orange;
+}
+
+.resultItem {
+  outline: none;
+  text-align: left;
+  text-transform: capitalize;
+
+  &.resultItemSelected {
+    font-weight: bold;
+  }
+}
+
+.resultSummary {
+  margin-bottom: $xs;
+}
+
+.resultLink {
+  color: $grey;
+  font-size: $font-xs;
+}

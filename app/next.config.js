@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const path = require('path');
+
 const nextConfig = {
   reactStrictMode: true,
   env: {
@@ -7,6 +9,9 @@ const nextConfig = {
   },
   images: {
     domains: ["images.unsplash.com", "upload.wikimedia.org"],
+  },
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
   },
   webpack: (config) => {
     config.externals["isomorphic-fetch"] = "fetch";

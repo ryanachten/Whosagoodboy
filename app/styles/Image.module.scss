@@ -1,0 +1,90 @@
+@import "./variables/colors.scss";
+@import "./variables/sizes.scss";
+
+.imageWrapper {
+  position: relative;
+}
+
+$boxShadowSize: 4px;
+.image {
+  border-radius: $s;
+  height: fit-content;
+  max-width: 250px;
+  min-width: 150px;
+  position: relative;
+  width: calc(50% - $m);
+  z-index: 2;
+
+  &.loadingImage {
+    min-height: 150px;
+    opacity: 0;
+  }
+
+  &.imageMystery {
+    background-color: $orange;
+    box-shadow: $orange -#{$boxShadowSize} $boxShadowSize;
+  }
+
+  &.imageMatched {
+    background-color: $red;
+    box-shadow: $red $boxShadowSize $boxShadowSize;
+  }
+}
+
+.loading {
+  align-items: center;
+  display: flex;
+  border-radius: $s;
+  position: absolute;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  z-index: 3;
+
+  &.imageMystery {
+    background-color: $orange;
+  }
+
+  &.imageMatched {
+    background-color: $red;
+  }
+}
+
+$loadingRingDiameter: 80px;
+$loadingRingWidth: 8px;
+.loadingRing {
+  display: inline-block;
+  position: relative;
+  width: $loadingRingDiameter;
+  height: $loadingRingDiameter;
+
+  div {
+    animation: loadingRingAnimation 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border: $loadingRingWidth solid $light-pink;
+    border-color: $light-pink transparent transparent transparent;
+    border-radius: 50%;
+    margin: $loadingRingWidth;
+    position: absolute;
+    height: $loadingRingDiameter - $loadingRingWidth * 2;
+    width: $loadingRingDiameter - $loadingRingWidth * 2;
+
+    &:nth-child(1) {
+      animation-delay: -0.45s;
+    }
+    &:nth-child(2) {
+      animation-delay: -0.3s;
+    }
+    &:nth-child(3) {
+      animation-delay: -0.15s;
+    }
+  }
+}
+
+@keyframes loadingRingAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
