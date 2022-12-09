@@ -1,6 +1,8 @@
 resource "vercel_project" "whosagoodboy_site" {
-  name      = "whosagoodboy"
-  framework = "nextjs"
+  name           = "whosagoodboy"
+  framework      = "nextjs"
+  root_directory = "app"
+
   git_repository = {
     type = "github"
     repo = "ryanachten/whosagoodboy"
