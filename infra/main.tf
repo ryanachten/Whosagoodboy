@@ -1,13 +1,12 @@
-provider "heroku" {
-  email   = var.heroku_email
-  api_key = var.heroku_api_key
+provider "vercel" {
+  api_token = var.vercel_api_token
 }
 
 terraform {
   required_providers {
-    heroku = {
-      source  = "heroku/heroku"
-      version = "~> 4.8.0"
+    vercel = {
+      source  = "vercel/vercel"
+      version = "~> 0.4"
     }
   }
 }

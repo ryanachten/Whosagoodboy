@@ -1,17 +1,6 @@
-variable "heroku_app_name" {
-  description = "Heroku app name (lower case)"
-  type        = string
-  default     = "thatsagoodboy"
-}
-
 #### SECRETS - Replaced by process environment variables ####
-variable "heroku_email" {
-  description = "Email address of Heroku account"
-  type        = string
-}
-
-variable "heroku_api_key" {
-  description = "API key for Heroku account"
+variable "vercel_api_token" {
+  description = "API token for Vercel account"
   type        = string
   sensitive   = true
 }

@@ -1,20 +1,22 @@
-resource "heroku_app" "app" {
-  name   = var.heroku_app_name
-  region = "us"
-
-  config_vars = {
-    UNSPLASH_ACCESS_KEY = var.unsplash_access_key
-    UNSPLASH_SECRET_KEY = var.unsplash_secret_key
+resource "vercel_project" "whosagoodboy_site" {
+  name      = "whosagoodboy"
+  framework = "nextjs"
+  git_repository = {
+    type = "github"
+    repo = "ryanachten/whosagoodboy"
   }
-
-  buildpacks = [
-    "heroku/nodejs"
-  ]
 }
 
-resource "heroku_build" "build" {
-  app = heroku_app.app.id
-  source {
-    path = "../app"
-  }
+resource "vercel_project_environment_variable" "unsplash_access_key" {
+  project_id = vercel_project.whosagoodboy_site.id
+  target     = ["preview", "development", "production"]
+  key        = "UNSPLASH_ACCESS_KEY"
+  value      = var.unsplash_access_key
+}
+
+resource "vercel_project_environment_variable" "unsplash_secret_key" {
+  project_id = vercel_project.whosagoodboy_site.id
+  target     = ["preview", "development", "production"]
+  key        = "UNSPLASH_SECRET_KEY"
+  value      = var.unsplash_secret_key
 }
